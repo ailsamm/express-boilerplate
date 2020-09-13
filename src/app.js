@@ -5,6 +5,10 @@ const cors = require('cors');
 const helmet = require('helmet');
 const logger = require('./logger');
 const { NODE_ENV } = require('./config');
+const vegetarianMealsRouter = require('./vegetarianMeals/vegetarian-meals-router');
+const poultryMealsRouter = require('./vegetarianMeals/poultry-meals-router');
+const redMeatMealsRouter = require('./vegetarianMeals/red-meat-meals-router');
+const fishMealsRouter = require('./vegetarianMeals/fish-meals-router');
 
 const app = express();
 
@@ -26,6 +30,11 @@ app.use(function errorHandler(error, req, res, next) {
   }
   res.status(500).json(response);
 })
+
+app.use('/api/fish', fishMealsRouter);
+app.use('/api/poultry', poultryMealsRouter);
+app.use('/api/redmeat', redMeatMealsRouter);
+app.use('/api/vegetarian', vegetarianMealsRouter);
 
 app.get('/', (req, res) => {
    res.send('Hello, boilerplate!');
